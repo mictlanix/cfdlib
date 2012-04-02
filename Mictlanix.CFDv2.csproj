@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63EBACD8-7BB0-480F-81BF-5E0690B27112}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Mictlanix.CFDv2</RootNamespace>
+    <AssemblyName>Mictlanix.CFDv2</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\Packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\EmbeddedResourceResolver.cs" />
+    <Compile Include="CFDv2\SatCfdv2.cs" />
+    <Compile Include="CFDv2\SatCfdv2Ex.cs" />
+    <Compile Include="CFDv2\CFDv2Utils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\cadenaoriginal_2_0.xslt" />
+    <EmbeddedResource Include="Resources\detallista.xslt" />
+    <EmbeddedResource Include="Resources\divisas.xslt" />
+    <EmbeddedResource Include="Resources\donat.xslt" />
+    <EmbeddedResource Include="Resources\ecb.xslt" />
+    <EmbeddedResource Include="Resources\ecc.xslt" />
+    <EmbeddedResource Include="Resources\implocal.xslt" />
+    <EmbeddedResource Include="Resources\psgecfd.xslt" />
+    <EmbeddedResource Include="Resources\terceros.xslt" />
+    <EmbeddedResource Include="Resources\utilerias.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>
