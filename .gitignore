@@ -1,6 +1,6 @@
 Packages
-*/bin
-*/obj
+bin
+obj
 *.suo
 *.userprefs
 *.pidb
