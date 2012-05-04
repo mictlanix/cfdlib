@@ -41,6 +41,8 @@
     <Compile Include="CFDv2\SatCfdv2Ex.cs" />
     <Compile Include="CFDv2\CFDv2Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CFDv2\CFDv2Report.cs" />
+    <Compile Include="CFDv2\CFDv2ReportItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
