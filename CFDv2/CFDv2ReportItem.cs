@@ -46,6 +46,7 @@ namespace Mictlanix.CFDv2
 		public int Serial { get; set; }
 
         // 04. Número de Aprobación
+		public int ApprovalYear { get; set; }
 		public int ApprovalNumber { get; set; }
 
         // 05. Fecha y hora de expedición (dd/mm/yyyy hh:mm:ss)
@@ -79,10 +80,10 @@ namespace Mictlanix.CFDv2
 			string type = Type == ComprobanteTipoDeComprobante.ingreso ? "I" : 
                           Type == ComprobanteTipoDeComprobante.egreso ? "E" : "T";
 
-            return string.Format("|{0}|{1}|{2}|{3}|{4:dd/MM/yyyy HH:mm:ss}|{5:0.00}|{6:0.00}|{7}|{8}|{9}|{10:dd/MM/yyyy}|{11}|",
+			return string.Format ("|{0}|{1}|{2}|{12:0000}{3}|{4:dd/MM/yyyy HH:mm:ss}|{5:0.00}|{6:0.00}|{7}|{8}|{9}|{10:dd/MM/yyyy}|{11}|",
                                  Taxpayer, Batch, Serial, ApprovalNumber, Date,
                                  Amount, Taxes, IsActive ? 1 : 0, type,
-                                 CustomsMotion, CustomsMotionDate, CustomsAgency);
+                                 CustomsMotion, CustomsMotionDate, CustomsAgency, ApprovalYear);
         }
 		
 		// ICloneable implementation
