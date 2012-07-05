@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63EBACD8-7BB0-480F-81BF-5E0690B27112}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Mictlanix</RootNamespace>
+    <AssemblyName>Mictlanix.CFDLib</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CFDv22\SatCfdv22.cs" />
+    <Compile Include="CFDv22\SatCfdv22Ex.cs" />
+    <Compile Include="CFDv20\Resources\EmbeddedResourceResolver.cs" />
+    <Compile Include="CFDv22\Resources\EmbeddedResourceResolver.cs" />
+    <Compile Include="CFDLib\Utils.cs" />
+    <Compile Include="CFDv20\SatCfdv20Ex.cs" />
+    <Compile Include="CFDv20\SatCfdv20.cs" />
+    <Compile Include="CFDLib\CFDv2Report.cs" />
+    <Compile Include="CFDLib\CFDv2ReportItem.cs" />
+    <Compile Include="CFDLib\FiscalDocumentType.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv20\Resources\cadenaoriginal_2_0.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\detallista.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\divisas.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\donat.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\ecb.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\ecc.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\implocal.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\psgecfd.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\terceros.xslt" />
+    <EmbeddedResource Include="CFDv20\Resources\utilerias.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\detallista.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\divisas.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\ecb.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\ecc.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\implocal.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\psgecfd.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\utilerias.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\cadenaoriginal_2_2.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\donat11.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\terceros11.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\ventavehiculos.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\TuristaPasajeroExtranjero.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\leyendasFisc.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\pfic.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\psgcfdsp.xslt" />
+    <EmbeddedResource Include="CFDv22\Resources\iedu.xslt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CFDv22\" />
+    <Folder Include="CFDLib\" />
+  </ItemGroup>
+</Project>

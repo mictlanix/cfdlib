@@ -35,37 +35,16 @@ using System.Xml.Xsl;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.OpenSsl;
-using Mictlanix.CFDv2.Resources;
+using Mictlanix.CFDv22.Resources;
 
-namespace Mictlanix.CFDv2
+namespace Mictlanix.CFDLib
 {
-	public static class CFDv2Utils
+	internal static class Utils
 	{
-		public static string DigitalSignature (Comprobante cfd, byte[] privateKey, byte[] password)
-		{
-			return SHA1WithRSA (privateKey, password, OriginalString (cfd));
-		}
-
-		public static string OriginalString (Comprobante cfd)
-		{
-			var resolver = new EmbeddedResourceResolver ();
-			
-			using (var xml = SerializeToXmlStream (cfd)) {
-				using (var output = new StringWriter()) {
-					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_2_0.xslt")) {
-						XslCompiledTransform xslt = new XslCompiledTransform ();
-						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
-						xslt.Transform (XmlReader.Create (xml), null, output);
-						return output.ToString ();
-					}
-				}
-			}
-		}
-		
-		public static MemoryStream SerializeToXmlStream (Comprobante obj)
+		public static MemoryStream SerializeToXmlStream<T> (T obj)
 		{
 			var ms = new MemoryStream (4 * 1024);
-			var xs = new XmlSerializer (typeof(Comprobante));
+			var xs = new XmlSerializer (typeof(T));
 			var xml = new XmlTextWriter (ms, Encoding.UTF8);
 			var xmlns = new XmlSerializerNamespaces (new XmlQualifiedName[] {
                 new XmlQualifiedName ("", "http://www.sat.gob.mx/cfd/2"),
@@ -78,7 +57,7 @@ namespace Mictlanix.CFDv2
 			return ms;
 		}
 		
-		internal static string SHA1WithRSA (byte[] data, byte[] password, string message)
+		public static string SHA1WithRSA (string message, byte[] data, byte[] password)
 		{
 			ISigner signer;
 			byte[] signature;

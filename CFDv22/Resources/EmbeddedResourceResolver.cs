@@ -31,7 +31,7 @@ using System.Reflection;
 using System.IO;
 using System.Xml;
 
-namespace Mictlanix.CFDv2.Resources
+namespace Mictlanix.CFDv22.Resources
 {
     internal class EmbeddedResourceResolver : XmlUrlResolver
     {

@@ -1,5 +1,5 @@
 ﻿// 
-// MonthlyReportItem.cs
+// CFDv2ReportItem.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.org>
@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Mictlanix.CFDv2
+namespace Mictlanix.CFDLib
 {
     public class CFDv2ReportItem : ICloneable
     {
@@ -62,7 +62,7 @@ namespace Mictlanix.CFDv2
 		public bool IsActive { get; set; }
 
         // 09. Efecto de Comprobante (I, E, T)
-		public ComprobanteTipoDeComprobante Type { get; set; }
+		public CFDv2ReportItemType Type { get; set; }
 
         // 10. Pedimento
 		public string CustomsMotion { get; set; }
@@ -77,8 +77,8 @@ namespace Mictlanix.CFDv2
         
         public override string ToString ()
 		{
-			string type = Type == ComprobanteTipoDeComprobante.ingreso ? "I" : 
-                          Type == ComprobanteTipoDeComprobante.egreso ? "E" : "T";
+			string type = Type == CFDv2ReportItemType.Income ? "I" : 
+                          Type == CFDv2ReportItemType.Outcome ? "E" : "T";
 
 			return string.Format ("|{0}|{1}|{2}|{12:0000}{3}|{4:dd/MM/yyyy HH:mm:ss}|{5:0.00}|{6:0.00}|{7}|{8}|{9}|{10:dd/MM/yyyy}|{11}|",
                                  Taxpayer, Batch, Serial, ApprovalNumber, Date,

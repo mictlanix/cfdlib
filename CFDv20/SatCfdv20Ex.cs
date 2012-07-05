@@ -27,13 +27,20 @@
 //
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Xml.Xsl;
+using Mictlanix.CFDv22.Resources;
 
-namespace Mictlanix.CFDv2
+namespace Mictlanix.CFDv20
 {
     public partial class Comprobante
     {
+        [XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+        public string schemaLocation = "http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd";
+		
         XmlSerializerNamespaces xmlns;
 
         [XmlNamespaceDeclarations]
@@ -54,7 +61,37 @@ namespace Mictlanix.CFDv2
             set { xmlns = value; }
         }
         
-        [XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string schemaLocation = "http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd";
+        public override string ToString()
+        {
+			var resolver = new EmbeddedResourceResolver ();
+
+			using (var xml = ToXmlStream()) {
+				using (var output = new StringWriter()) {
+					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_2_0.xslt")) {
+						XslCompiledTransform xslt = new XslCompiledTransform ();
+						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
+						xslt.Transform (XmlReader.Create (xml), null, output);
+						return output.ToString ();
+					}
+				}
+			}
+		}
+
+		public string ToXmlString()
+        {
+			using (var ms = ToXmlStream()) {
+				return Encoding.UTF8.GetString (ms.ToArray ());
+			}
+		}
+
+		public MemoryStream ToXmlStream()
+        {
+			return CFDLib.Utils.SerializeToXmlStream (this);
+		}
+
+		public void Sign (byte[] privateKey, byte[] password)
+		{
+			sello = CFDLib.Utils.SHA1WithRSA (ToString (), privateKey, password);
+		}
     }
 }

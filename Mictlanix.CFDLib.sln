@@ -1,7 +1,7 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mictlanix.CFDv2", "Mictlanix.CFDv2.csproj", "{63EBACD8-7BB0-480F-81BF-5E0690B27112}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mictlanix.CFDLib", "Mictlanix.CFDLib.csproj", "{63EBACD8-7BB0-480F-81BF-5E0690B27112}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

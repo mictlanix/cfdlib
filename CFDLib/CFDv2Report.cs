@@ -1,5 +1,5 @@
 // 
-// MonthlyReport.cs
+// CFDv2Report.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.org>
@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mictlanix.CFDv2
+namespace Mictlanix.CFDLib
 {
     public class CFDv2Report
     {
