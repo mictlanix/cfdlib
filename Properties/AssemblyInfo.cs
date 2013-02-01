@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mictlanix")]
 [assembly: AssemblyProduct("CFDv2 Library")]
-[assembly: AssemblyCopyright("Copyright © 2012 Eddy Zavaleta, Mictlanix and contributors.")]
+[assembly: AssemblyCopyright("Copyright © 2012-2013 Eddy Zavaleta, Mictlanix and contributors.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
