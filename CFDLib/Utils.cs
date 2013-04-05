@@ -39,7 +39,7 @@ using Mictlanix.CFDv22.Resources;
 
 namespace Mictlanix.CFDLib
 {
-	internal static class Utils
+	public static class Utils
 	{
 		public static MemoryStream SerializeToXmlStream<T> (T obj)
 		{
@@ -62,7 +62,7 @@ namespace Mictlanix.CFDLib
 			ISigner signer;
 			byte[] signature;
 			AsymmetricKeyParameter key;
-            
+
 			key = PrivateKeyFactory.DecryptKey (UTF8Encoding.UTF8.GetString (password).ToCharArray (), data);
 			signer = SignerUtilities.GetSigner ("SHA1WithRSA");
 			signer.Init (true, key);
@@ -72,6 +72,12 @@ namespace Mictlanix.CFDLib
 			signature = signer.GenerateSignature ();
 
 			return Convert.ToBase64String (signature);
+		}
+
+		public static bool PrivateKeyTest (byte[] data, byte[] password)
+		{
+			var key = PrivateKeyFactory.DecryptKey (UTF8Encoding.UTF8.GetString (password).ToCharArray (), data);
+			return key.IsPrivate;
 		}
 	}
 }

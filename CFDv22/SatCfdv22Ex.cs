@@ -38,6 +38,8 @@ namespace Mictlanix.CFDv22
 {
     public partial class Comprobante
     {
+		public static readonly DateTime RELEASE_DATE = new DateTime (2012, 7, 1, 0, 0, 0);
+
         [XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
         public string schemaLocation = "http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv22.xsd";
 
