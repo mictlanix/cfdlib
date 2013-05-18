@@ -41,15 +41,11 @@ namespace Mictlanix.CFDLib
 {
 	public static class Utils
 	{
-		public static MemoryStream SerializeToXmlStream<T> (T obj)
+        public static MemoryStream SerializeToXmlStream<T>(T obj, XmlSerializerNamespaces xmlns)
 		{
 			var ms = new MemoryStream (4 * 1024);
 			var xs = new XmlSerializer (typeof(T));
 			var xml = new XmlTextWriter (ms, Encoding.UTF8);
-			var xmlns = new XmlSerializerNamespaces (new XmlQualifiedName[] {
-                new XmlQualifiedName ("", "http://www.sat.gob.mx/cfd/2"),
-                new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
-            });
 
 			xs.Serialize (xml, obj, xmlns);
 			ms.Seek (0, SeekOrigin.Begin);
@@ -63,7 +59,7 @@ namespace Mictlanix.CFDLib
 			byte[] signature;
 			AsymmetricKeyParameter key;
 
-			key = PrivateKeyFactory.DecryptKey (UTF8Encoding.UTF8.GetString (password).ToCharArray (), data);
+			key = PrivateKeyFactory.DecryptKey (Encoding.UTF8.GetString (password).ToCharArray (), data);
 			signer = SignerUtilities.GetSigner ("SHA1WithRSA");
 			signer.Init (true, key);
 
@@ -76,7 +72,7 @@ namespace Mictlanix.CFDLib
 
 		public static bool PrivateKeyTest (byte[] data, byte[] password)
 		{
-			var key = PrivateKeyFactory.DecryptKey (UTF8Encoding.UTF8.GetString (password).ToCharArray (), data);
+			var key = PrivateKeyFactory.DecryptKey (Encoding.UTF8.GetString (password).ToCharArray (), data);
 			return key.IsPrivate;
 		}
 	}
