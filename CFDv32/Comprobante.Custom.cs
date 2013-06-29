@@ -1,5 +1,5 @@
 ﻿// 
-// Comprobante.cs
+// SatCfdv32.Custom.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.org>
@@ -32,16 +32,14 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
-using Mictlanix.CFDv22.Resources;
+using Mictlanix.CFDv32.Resources;
 
-namespace Mictlanix.CFDv22
+namespace Mictlanix.CFDv32
 {
     public partial class Comprobante
     {
-		public static readonly DateTime RELEASE_DATE = new DateTime (2012, 7, 1, 0, 0, 0);
-
         [XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string schemaLocation = "http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv22.xsd";
+        public string schemaLocation = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd";
 
         XmlSerializerNamespaces xmlns;
 
@@ -53,7 +51,8 @@ namespace Mictlanix.CFDv22
                 if (xmlns == null)
                 {
                     xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
-                        new XmlQualifiedName("", "http://www.sat.gob.mx/cfd/2"),
+                        new XmlQualifiedName("cfdi", "http://www.sat.gob.mx/cfd/3"),
+                        new XmlQualifiedName("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"),
                         new XmlQualifiedName("xsi", "http://www.w3.org/2001/XMLSchema-instance")
                     });
                 }
@@ -69,7 +68,7 @@ namespace Mictlanix.CFDv22
 
 			using (var xml = ToXmlStream()) {
 				using (var output = new StringWriter()) {
-					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_2_2.xslt")) {
+                    using (var xsl_stream = resolver.GetResource ("cadenaoriginal_3_2.xslt")) {
 						XslCompiledTransform xslt = new XslCompiledTransform ();
 						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
 						xslt.Transform (XmlReader.Create (xml), null, output);
@@ -88,12 +87,12 @@ namespace Mictlanix.CFDv22
 
 		public MemoryStream ToXmlStream()
         {
-            var xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
-                new XmlQualifiedName ("", "http://www.sat.gob.mx/cfd/2"),
-                new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
-            });
+            if (Complemento != null && Complemento.TimbreFiscalDigital != null)
+            {
+                Complemento.TimbreFiscalDigital.schemaLocation = null;
+            }
 
-            return CFDLib.Utils.SerializeToXmlStream(this, xmlns);
+            return CFDLib.Utils.SerializeToXmlStream(this, Xmlns);
 		}
 
 		public void Sign (byte[] privateKey, byte[] password)

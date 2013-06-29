@@ -86,7 +86,12 @@ namespace Mictlanix.CFDv20
 
 		public MemoryStream ToXmlStream()
         {
-			return CFDLib.Utils.SerializeToXmlStream (this);
+            var xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
+                new XmlQualifiedName ("", "http://www.sat.gob.mx/cfd/2"),
+                new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
+            });
+
+            return CFDLib.Utils.SerializeToXmlStream(this, xmlns);
 		}
 
 		public void Sign (byte[] privateKey, byte[] password)

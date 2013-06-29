@@ -36,6 +36,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CFDv32\TimbreFiscalDigital.Custom.cs" />
+    <Compile Include="CFDv32\Resources\EmbeddedResourceResolver.cs" />
+    <Compile Include="CFDv32\Comprobante.Custom.cs" />
+    <Compile Include="CFDv32\Comprobante.cs" />
+    <Compile Include="CFDv32\TimbreFiscalDigital.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CFDv22\SatCfdv22.cs" />
     <Compile Include="CFDv22\SatCfdv22Ex.cs" />
@@ -77,12 +82,56 @@
     <EmbeddedResource Include="CFDv22\Resources\psgcfdsp.xslt" />
     <EmbeddedResource Include="CFDv22\Resources\iedu.xslt" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CFDv22\" />
-    <Folder Include="CFDLib\" />
+    <EmbeddedResource Include="CFDv32\Resources\cadenaoriginal_3_2.xslt" />
+    <EmbeddedResource Include="CFDv32\Resources\spei.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\detallista.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\divisas.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\donat11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\ecb.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\ecc.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\iedu.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\implocal.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\leyendasFisc.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\pfic.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\psgecfd.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\terceros11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\TuristaPasajeroExtranjero.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\utilerias.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\ventavehiculos.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv32\Resources\cadenaoriginal_TFD_1_0.xslt" />
   </ItemGroup>
 </Project>
