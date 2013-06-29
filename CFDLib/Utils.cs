@@ -76,8 +76,13 @@ namespace Mictlanix.CFDLib
 
 		public static bool PrivateKeyTest (byte[] data, byte[] password)
 		{
-			var key = PrivateKeyFactory.DecryptKey (UTF8Encoding.UTF8.GetString (password).ToCharArray (), data);
-			return key.IsPrivate;
+			try {
+				var key = PrivateKeyFactory.DecryptKey (UTF8Encoding.UTF8.GetString (password).ToCharArray (), data);
+				return key.IsPrivate;
+			} catch {
+			}
+
+			return false;
 		}
 	}
 }
