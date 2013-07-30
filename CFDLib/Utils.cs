@@ -45,7 +45,7 @@ namespace Mictlanix.CFDLib
 		{
 			var ms = new MemoryStream (4 * 1024);
 			var xs = new XmlSerializer (typeof(T));
-			var xml = new XmlTextWriter (ms, Encoding.UTF8);
+			var xml = new XmlTextWriter (ms, new UTF8Encoding (false));
 
 			xs.Serialize (xml, obj, xmlns);
 			ms.Seek (0, SeekOrigin.Begin);
