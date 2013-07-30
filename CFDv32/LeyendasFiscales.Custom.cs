@@ -36,17 +36,17 @@ using Mictlanix.CFDv32.Resources;
 
 namespace Mictlanix.CFDv32
 {
-    public partial class TimbreFiscalDigital
-    {
+	public partial class LeyendasFiscales
+	{
 		string schema_location = string.Empty;
-        XmlSerializerNamespaces xmlns;
+		XmlSerializerNamespaces xmlns;
 		
 		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
 		public string SchemaLocation
 		{
 			get {
 				if (schema_location == string.Empty) {
-					schema_location = "http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd";
+					schema_location = "http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd";
 				}
 				
 				return schema_location;
@@ -57,8 +57,7 @@ namespace Mictlanix.CFDv32
         [XmlNamespaceDeclarations]
         public XmlSerializerNamespaces Xmlns
         {
-            get
-            {
+            get {
                 if (xmlns == null) {
                     xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
                         new XmlQualifiedName("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"),

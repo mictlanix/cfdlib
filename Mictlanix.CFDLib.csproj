@@ -32,7 +32,7 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\Libraries\BouncyCastle\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +52,8 @@
     <Compile Include="CFDLib\CFDv2Report.cs" />
     <Compile Include="CFDLib\CFDv2ReportItem.cs" />
     <Compile Include="CFDLib\CFDv2ReportItemType.cs" />
+    <Compile Include="CFDv32\LeyendasFiscales.cs" />
+    <Compile Include="CFDv32\LeyendasFiscales.Custom.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

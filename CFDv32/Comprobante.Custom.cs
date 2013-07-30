@@ -38,23 +38,59 @@ namespace Mictlanix.CFDv32
 {
     public partial class Comprobante
     {
-        [XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string schemaLocation = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd";
+		string schema_location;
+		XmlSerializerNamespaces xmlns;
 
-        XmlSerializerNamespaces xmlns;
+		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+		public string SchemaLocation
+		{
+			get {
+				if (schema_location == null) {
+					schema_location = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd";
+
+					if (Complemento != null) {
+						foreach (var item in Complemento) {
+							if(item is TimbreFiscalDigital) {
+								var obj = (TimbreFiscalDigital)item;
+								if (!schema_location.Contains (obj.SchemaLocation)) {
+									schema_location += " " + obj.SchemaLocation;
+								}
+								obj.SchemaLocation = null;
+							} else if(item is LeyendasFiscales) {
+								var obj = (LeyendasFiscales)item;
+								if (!schema_location.Contains (obj.SchemaLocation)) {
+									schema_location += " " + obj.SchemaLocation;
+								}
+								obj.SchemaLocation = null;
+							}
+						}
+					}
+				}
+
+				return schema_location;
+			}
+			set { schema_location = value; }
+		}
 
         [XmlNamespaceDeclarations]
         public XmlSerializerNamespaces Xmlns
         {
-            get
-            {
-                if (xmlns == null)
-                {
+            get {
+                if (xmlns == null) {
                     xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
                         new XmlQualifiedName("cfdi", "http://www.sat.gob.mx/cfd/3"),
-                        new XmlQualifiedName("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"),
                         new XmlQualifiedName("xsi", "http://www.w3.org/2001/XMLSchema-instance")
                     });
+
+					if (Complemento != null) {
+						foreach (var item in Complemento) {
+							if (item is TimbreFiscalDigital) {
+								xmlns.Add ("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital");
+							} else if (item is LeyendasFiscales) {
+								xmlns.Add ("leyendasFisc", "http://www.sat.gob.mx/leyendasFiscales");
+							}
+						}
+					}
                 }
 
                 return xmlns;
@@ -78,21 +114,23 @@ namespace Mictlanix.CFDv32
 			}
 		}
 		
+		public MemoryStream ToXmlStream()
+		{
+			return CFDLib.Utils.SerializeToXmlStream (this, Xmlns);
+		}
+		
+		public byte[] ToXmlBytes()
+		{
+			using (var ms = ToXmlStream()) {
+				return ms.ToArray ();
+			}
+		}
+		
 		public string ToXmlString()
         {
 			using (var ms = ToXmlStream()) {
 				return Encoding.UTF8.GetString (ms.ToArray ());
 			}
-		}
-
-		public MemoryStream ToXmlStream()
-        {
-            if (Complemento != null && Complemento.TimbreFiscalDigital != null)
-            {
-                Complemento.TimbreFiscalDigital.schemaLocation = null;
-            }
-
-            return CFDLib.Utils.SerializeToXmlStream(this, Xmlns);
 		}
 
 		public void Sign (byte[] privateKey, byte[] password)
