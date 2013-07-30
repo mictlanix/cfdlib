@@ -2,7 +2,7 @@
 // CFDv2Utils.cs
 // 
 // Author:
-//   Eddy Zavaleta <eddy@mictlanix.org>
+//   Eddy Zavaleta <eddy@mictlanix.com>
 // 
 // Copyright (C) 2012-2013 Eddy Zavaleta, Mictlanix, and contributors.
 // 
@@ -72,8 +72,13 @@ namespace Mictlanix.CFDLib
 
 		public static bool PrivateKeyTest (byte[] data, byte[] password)
 		{
-			var key = PrivateKeyFactory.DecryptKey (Encoding.UTF8.GetString (password).ToCharArray (), data);
-			return key.IsPrivate;
+			try {
+				var key = PrivateKeyFactory.DecryptKey (UTF8Encoding.UTF8.GetString (password).ToCharArray (), data);
+				return key.IsPrivate;
+			} catch {
+			}
+
+			return false;
 		}
 	}
 }
