@@ -42,8 +42,7 @@ namespace Mictlanix.CFDv32
 		XmlSerializerNamespaces xmlns;
 
 		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-		public string SchemaLocation
-		{
+		public string SchemaLocation {
 			get {
 				if (schema_location == null) {
 					schema_location = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd";
@@ -73,8 +72,7 @@ namespace Mictlanix.CFDv32
 		}
 
         [XmlNamespaceDeclarations]
-        public XmlSerializerNamespaces Xmlns
-        {
+        public XmlSerializerNamespaces Xmlns {
             get {
                 if (xmlns == null) {
                     xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
@@ -136,6 +134,20 @@ namespace Mictlanix.CFDv32
 		public void Sign (byte[] privateKey, byte[] password)
 		{
 			sello = CFDLib.Utils.SHA1WithRSA (ToString (), privateKey, password);
+		}
+		
+		public static Comprobante FromXml (string xml)
+		{
+			using(var ms = new MemoryStream (Encoding.UTF8.GetBytes(xml))) {
+				return FromXml (ms);
+			}
+		}
+
+		public static Comprobante FromXml (Stream xml)
+		{
+			var xs = new XmlSerializer (typeof(Comprobante));
+			object obj = xs.Deserialize(xml);
+			return obj as Comprobante;
 		}
     }
 }
