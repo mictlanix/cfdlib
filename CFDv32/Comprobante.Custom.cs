@@ -1,5 +1,5 @@
 ﻿// 
-// SatCfdv32.Custom.cs
+// Comprobante.Custom.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.com>
@@ -25,7 +25,6 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-
 using System;
 using System.IO;
 using System.Text;
