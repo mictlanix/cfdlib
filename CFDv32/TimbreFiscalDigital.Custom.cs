@@ -96,5 +96,19 @@ namespace Mictlanix.CFDv32
         {
             return CFDLib.Utils.SerializeToXmlStream(this, Xmlns);
 		}
+
+		public static TimbreFiscalDigital FromXml (string xml)
+		{
+			using(var ms = new MemoryStream (Encoding.UTF8.GetBytes(xml))) {
+				return FromXml (ms);
+			}
+		}
+
+		public static TimbreFiscalDigital FromXml (Stream xml)
+		{
+			var xs = new XmlSerializer (typeof(TimbreFiscalDigital));
+			object obj = xs.Deserialize(xml);
+			return obj as TimbreFiscalDigital;
+		}
     }
 }
