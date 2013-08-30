@@ -26,6 +26,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -38,29 +39,29 @@ namespace Mictlanix.CFDv32
     public partial class Comprobante
     {
 		string schema_location;
-		XmlSerializerNamespaces xmlns;
+		List<XmlQualifiedName> xmlns;
 
 		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
 		public string SchemaLocation {
 			get {
 				if (schema_location == null) {
 					schema_location = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd";
-
-					if (Complemento != null) {
-						foreach (var item in Complemento) {
-							if(item is TimbreFiscalDigital) {
-								var obj = (TimbreFiscalDigital)item;
-								if (!schema_location.Contains (obj.SchemaLocation)) {
-									schema_location += " " + obj.SchemaLocation;
-								}
-								obj.SchemaLocation = null;
-							} else if(item is LeyendasFiscales) {
-								var obj = (LeyendasFiscales)item;
-								if (!schema_location.Contains (obj.SchemaLocation)) {
-									schema_location += " " + obj.SchemaLocation;
-								}
-								obj.SchemaLocation = null;
+				}
+				
+				if (Complemento != null) {
+					foreach (var item in Complemento) {
+						if (item is TimbreFiscalDigital) {
+							var obj = (TimbreFiscalDigital)item;
+							if (!schema_location.Contains (obj.SchemaLocation)) {
+								schema_location += " " + obj.SchemaLocation;
 							}
+							obj.SchemaLocation = null;
+						} else if (item is LeyendasFiscales) {
+							var obj = (LeyendasFiscales)item;
+							if (!schema_location.Contains (obj.SchemaLocation)) {
+								schema_location += " " + obj.SchemaLocation;
+							}
+							obj.SchemaLocation = null;
 						}
 					}
 				}
@@ -74,25 +75,31 @@ namespace Mictlanix.CFDv32
         public XmlSerializerNamespaces Xmlns {
             get {
                 if (xmlns == null) {
-                    xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
-                        new XmlQualifiedName("cfdi", "http://www.sat.gob.mx/cfd/3"),
-                        new XmlQualifiedName("xsi", "http://www.w3.org/2001/XMLSchema-instance")
-                    });
+					xmlns = new List<XmlQualifiedName> ();
+					xmlns.Add (new XmlQualifiedName ("cfdi", "http://www.sat.gob.mx/cfd/3"));
+					xmlns.Add (new XmlQualifiedName("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
+				}
 
-					if (Complemento != null) {
-						foreach (var item in Complemento) {
-							if (item is TimbreFiscalDigital) {
-								xmlns.Add ("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital");
-							} else if (item is LeyendasFiscales) {
-								xmlns.Add ("leyendasFisc", "http://www.sat.gob.mx/leyendasFiscales");
-							}
+				if (Complemento != null) {
+					foreach (var item in Complemento) {
+						if (item is TimbreFiscalDigital && !xmlns.Exists (x => x.Name == "tfd")) {
+							xmlns.Add (new XmlQualifiedName ("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"));
+						} else if (item is LeyendasFiscales && !xmlns.Exists (x => x.Name == "leyendasFisc")) {
+							xmlns.Add (new XmlQualifiedName ("leyendasFisc", "http://www.sat.gob.mx/leyendasFiscales"));
 						}
 					}
-                }
+				}
 
-                return xmlns;
+				return new XmlSerializerNamespaces (xmlns.ToArray ());
             }
-            set { xmlns = value; }
+            set {
+				if (value == null) {
+					xmlns = null;
+					return;
+				}
+
+				xmlns = new List<XmlQualifiedName> (value.ToArray ());
+			}
         }
         
         public override string ToString()
@@ -111,21 +118,21 @@ namespace Mictlanix.CFDv32
 			}
 		}
 		
-		public MemoryStream ToXmlStream()
+		public MemoryStream ToXmlStream ()
 		{
 			return CFDLib.Utils.SerializeToXmlStream (this, Xmlns);
 		}
 		
-		public byte[] ToXmlBytes()
+		public byte[] ToXmlBytes ()
 		{
-			using (var ms = ToXmlStream()) {
+			using (var ms = ToXmlStream ()) {
 				return ms.ToArray ();
 			}
 		}
 		
-		public string ToXmlString()
+		public string ToXmlString ()
         {
-			using (var ms = ToXmlStream()) {
+			using (var ms = ToXmlStream ()) {
 				return Encoding.UTF8.GetString (ms.ToArray ());
 			}
 		}
@@ -137,7 +144,7 @@ namespace Mictlanix.CFDv32
 		
 		public static Comprobante FromXml (string xml)
 		{
-			using(var ms = new MemoryStream (Encoding.UTF8.GetBytes(xml))) {
+			using(var ms = new MemoryStream (Encoding.UTF8.GetBytes (xml))) {
 				return FromXml (ms);
 			}
 		}
@@ -145,7 +152,7 @@ namespace Mictlanix.CFDv32
 		public static Comprobante FromXml (Stream xml)
 		{
 			var xs = new XmlSerializer (typeof(Comprobante));
-			object obj = xs.Deserialize(xml);
+			object obj = xs.Deserialize (xml);
 			return obj as Comprobante;
 		}
     }
