@@ -97,7 +97,8 @@ namespace Mictlanix.CFDv22
 
 		public void Sign (byte[] privateKey, byte[] password)
 		{
-			sello = CFDLib.Utils.SHA1WithRSA (ToString (), privateKey, password);
+			string data = ToString ();
+			sello = CFDLib.Utils.SHA1WithRSA (data, privateKey, password);
 		}
     }
 }

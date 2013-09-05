@@ -30,7 +30,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
-using Mictlanix.CFDv22.Resources;
+using Mictlanix.CFDv20.Resources;
 
 namespace Mictlanix.CFDv20
 {
@@ -94,7 +94,8 @@ namespace Mictlanix.CFDv20
 
 		public void Sign (byte[] privateKey, byte[] password)
 		{
-			sello = CFDLib.Utils.SHA1WithRSA (ToString (), privateKey, password);
+			string data = ToString ();
+			sello = CFDLib.Utils.SHA1WithRSA (data, privateKey, password);
 		}
     }
 }
