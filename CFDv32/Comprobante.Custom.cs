@@ -52,7 +52,7 @@ namespace Mictlanix.CFDv32
 					foreach (var item in Complemento) {
 						if (item is TimbreFiscalDigital) {
 							var obj = (TimbreFiscalDigital)item;
-							if (!schema_location.Contains (obj.SchemaLocation)) {
+							if (obj.SchemaLocation != null && !schema_location.Contains (obj.SchemaLocation)) {
 								schema_location += " " + obj.SchemaLocation;
 							}
 							obj.SchemaLocation = null;
