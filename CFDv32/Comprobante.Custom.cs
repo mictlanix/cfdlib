@@ -55,13 +55,13 @@ namespace Mictlanix.CFDv32
 							if (obj.SchemaLocation != null && !schema_location.Contains (obj.SchemaLocation)) {
 								schema_location += " " + obj.SchemaLocation;
 							}
-							obj.SchemaLocation = null;
+							//obj.SchemaLocation = null;
 						} else if (item is LeyendasFiscales) {
 							var obj = (LeyendasFiscales)item;
 							if (!schema_location.Contains (obj.SchemaLocation)) {
 								schema_location += " " + obj.SchemaLocation;
 							}
-							obj.SchemaLocation = null;
+							//obj.SchemaLocation = null;
 						}
 					}
 				}
