@@ -1,0 +1,249 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Jahir (JJBM) --><!-- This document was created with Syntext Serna Free. --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mabe="http://recepcionfe.mabempresa.com/cfd/addenda/v1" targetNamespace="http://recepcionfe.mabempresa.com/cfd/addenda/v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="Factura">
+    <xs:annotation>
+      <xs:documentation>Addenda Mabe v1.0</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Moneda">
+          <xs:complexType>
+            <xs:attribute name="tipoMoneda" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:length value="3"/>
+                  <xs:enumeration value="MXN"/>
+                  <xs:enumeration value="USD"/>
+                  <xs:enumeration value="YEN"/>
+				  <xs:enumeration value="VEF"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="tipoCambio" type="xs:decimal"/>
+            <xs:attribute name="importeConLetra" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Proveedor">
+          <xs:complexType>
+            <xs:attribute name="codigo" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="9"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Entrega">
+          <xs:complexType>
+            <xs:attribute name="plantaEntrega" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="3"/>
+                  <xs:maxLength value="4"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="calle">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="35"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="noExterior">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:whiteSpace value="collapse"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="noInterior">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:whiteSpace value="collapse"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="codigoPostal">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="5"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Detalles">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Detalle" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="noLineaArticulo" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="3"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="codigoArticulo" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="47"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="descripcion" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="40"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="unidad" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="3"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="cantidad" use="required" type="xs:decimal"/>
+                  <xs:attribute name="precioSinIva" use="required" type="mabe:t_Importe"/>
+                  <xs:attribute name="precioConIva" type="mabe:t_Importe"/>
+                  <xs:attribute name="importeSinIva" use="required" type="mabe:t_Importe"/>
+                  <xs:attribute name="importeConIva" type="mabe:t_Importe"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Descuentos" minOccurs="0">
+          <xs:complexType>
+            <xs:attribute name="tipo" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="10"/>
+                  <xs:enumeration value="NA"/>
+                  <xs:enumeration value="CARGO"/>
+                  <xs:enumeration value="DESCUENTO"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="descripcion">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1"/>
+                  <xs:maxLength value="35"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="importe" use="required" type="mabe:t_Importe"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Subtotal">
+          <xs:complexType>
+            <xs:attribute name="importe" use="required" type="mabe:t_Importe"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Traslados" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Traslado" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="tipo" use="required" type="xs:string"/>
+                  <xs:attribute name="tasa" use="required" type="xs:decimal"/>
+                  <xs:attribute name="importe" use="required" type="mabe:t_Importe"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Retenciones" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Retencion" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="tipo" use="required" type="xs:string"/>
+                  <xs:attribute name="tasa" use="required" type="xs:decimal"/>
+                  <xs:attribute name="importe" use="required" type="mabe:t_Importe"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Total">
+          <xs:complexType>
+            <xs:attribute name="importe" use="required" type="mabe:t_Importe"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="version" use="required" fixed="1.0">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="tipoDocumento" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="FACTURA"/>
+            <xs:enumeration value="NOTA CREDITO"/>
+            <xs:enumeration value="NOTA CARGO"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="folio" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="fecha" use="required" type="xs:date"/>
+      <xs:attribute name="ordenCompra">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="35"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="referencia1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="35"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="referencia2">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="t_Importe">
+    <xs:annotation>
+      <xs:documentation>Tipo definido para expresar importes numericos con fracción a seis decimales</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="6"/>
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

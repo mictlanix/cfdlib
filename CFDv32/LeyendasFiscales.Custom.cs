@@ -40,8 +40,7 @@ namespace Mictlanix.CFDv32
 		XmlSerializerNamespaces xmlns;
 		
 		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-		public string SchemaLocation
-		{
+		public string SchemaLocation {
 			get {
 				if (schema_location == string.Empty) {
 					schema_location = "http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd";
@@ -53,45 +52,33 @@ namespace Mictlanix.CFDv32
 		}
 
         [XmlNamespaceDeclarations]
-        public XmlSerializerNamespaces Xmlns
-        {
-            get {
-                if (xmlns == null) {
-                    xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
-                        new XmlQualifiedName("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"),
-                        new XmlQualifiedName("xsi", "http://www.w3.org/2001/XMLSchema-instance")
-                    });
-                }
+        public XmlSerializerNamespaces Xmlns {
+			get {
+				if (xmlns == null) {
+					xmlns = new XmlSerializerNamespaces (new XmlQualifiedName[] {
+						new XmlQualifiedName ("leyendasFisc", "http://www.sat.gob.mx/leyendasFiscales"),
+						new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
+					});
+				}
 
-                return xmlns;
-            }
-            set { xmlns = value; }
-        }
+				return xmlns;
+			}
+			set { xmlns = value; }
+		}
 
-        public override string ToString()
-        {
-            var resolver = new EmbeddedResourceResolver();
-
-            using (var xml = ToXmlStream()) {
-                using (var output = new StringWriter()) {
-                    using (var xsl_stream = resolver.GetResource("cadenaoriginal_TFD_1_0.xslt")) {
-                        XslCompiledTransform xslt = new XslCompiledTransform();
-                        xslt.Load(XmlReader.Create(xsl_stream), XsltSettings.TrustedXslt, resolver);
-                        xslt.Transform(XmlReader.Create(xml), null, output);
-                        return output.ToString();
-                    }
-                }
-            }
-        }
+        public override string ToString ()
+		{
+			return ToXmlString ();
+		}
         
-		public string ToXmlString()
-        {
-			using (var ms = ToXmlStream()) {
+		public string ToXmlString ()
+		{
+			using (var ms = ToXmlStream ()) {
 				return Encoding.UTF8.GetString (ms.ToArray ());
 			}
 		}
 
-		public MemoryStream ToXmlStream()
+		public MemoryStream ToXmlStream ()
         {
             return CFDLib.Utils.SerializeToXmlStream(this, Xmlns);
 		}

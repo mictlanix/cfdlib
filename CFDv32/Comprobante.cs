@@ -35,7 +35,7 @@ namespace Mictlanix.CFDv32 {
         
         private List<object> complementoField;
         
-        private ComprobanteAddenda addendaField;
+		private List<object> addendaField;
         
         private string versionField;
         
@@ -147,8 +147,10 @@ namespace Mictlanix.CFDv32 {
             }
         }
         
-        /// <remarks/>
-        public ComprobanteAddenda Addenda {
+		/// <remarks/>
+		[XmlArray("Addenda")]
+		[XmlArrayItem(typeof(Mictlanix.CFDLib.Addendas.Mabe.Factura), Namespace="http://recepcionfe.mabempresa.com/cfd/addenda/v1")]
+		public List<object> Addenda {
             get {
                 return this.addendaField;
             }
@@ -1380,9 +1382,9 @@ namespace Mictlanix.CFDv32 {
         IEPS,
     }
     
-	/*
+
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+	/*[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1405,7 +1407,7 @@ namespace Mictlanix.CFDv32 {
     }*/
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+	/*[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1424,7 +1426,7 @@ namespace Mictlanix.CFDv32 {
                 this.anyField = value;
             }
         }
-    }
+	}*/
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]

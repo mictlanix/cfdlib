@@ -25,10 +25,8 @@
 // THE SOFTWARE.
 using System;
 
-namespace Mictlanix.CFDLib
-{
-	public class CFDException : Exception
-	{
+namespace Mictlanix.CFDLib {
+	public class CFDException : Exception {
 		public CFDException ()
 		{
 		}

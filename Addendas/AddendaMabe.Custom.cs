@@ -1,10 +1,10 @@
 ﻿// 
-// TimbreFiscalDigital.Custom.cs
+// AddendaMabe.Custom.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.com>
 // 
-// Copyright (C) 2012-2013 Eddy Zavaleta, Mictlanix, and contributors.
+// Copyright (C) 2015 Eddy Zavaleta, Mictlanix, and contributors.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -32,18 +32,16 @@ using System.Xml.Serialization;
 using System.Xml.Xsl;
 using Mictlanix.CFDv32.Resources;
 
-namespace Mictlanix.CFDv32
-{
-    public partial class TimbreFiscalDigital
-    {
+namespace Mictlanix.CFDLib.Addendas.Mabe {
+	public partial class Factura {
 		string schema_location = string.Empty;
         XmlSerializerNamespaces xmlns;
 		
 		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
 		public string SchemaLocation {
 			get {
-				if (schema_location == string.Empty) {
-					schema_location = "http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd";
+				if (string.IsNullOrWhiteSpace (schema_location)) {
+					schema_location = "http://recepcionfe.mabempresa.com/cfd/addenda/v1 http://recepcionfe.mabempresa.com/cfd/addenda/v1/mabev1.xsd";
 				}
 				
 				return schema_location;
@@ -56,7 +54,7 @@ namespace Mictlanix.CFDv32
 			get {
 				if (xmlns == null) {
 					xmlns = new XmlSerializerNamespaces (new XmlQualifiedName[] {
-						new XmlQualifiedName ("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"),
+						new XmlQualifiedName ("mabe", "http://recepcionfe.mabempresa.com/cfd/addenda/v1"),
 						new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
 					});
 				}
@@ -66,46 +64,21 @@ namespace Mictlanix.CFDv32
 			set { xmlns = value; }
 		}
 
-        public override string ToString()
+		public override string ToString ()
 		{
-			var resolver = new EmbeddedResourceResolver ();
-
-			using (var xml = ToXmlStream ()) {
-				using (var output = new StringWriter ()) {
-					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_TFD_1_0.xslt")) {
-						XslCompiledTransform xslt = new XslCompiledTransform ();
-						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
-						xslt.Transform (XmlReader.Create (xml), null, output);
-						return output.ToString ();
-					}
-				}
-			}
+			return ToXmlString ();
 		}
-        
-		public string ToXmlString()
+
+		public string ToXmlString ()
 		{
 			using (var ms = ToXmlStream ()) {
 				return Encoding.UTF8.GetString (ms.ToArray ());
 			}
 		}
 
-		public MemoryStream ToXmlStream()
+		public MemoryStream ToXmlStream ()
 		{
 			return CFDLib.Utils.SerializeToXmlStream (this, Xmlns);
-		}
-
-		public static TimbreFiscalDigital FromXml (string xml)
-		{
-			using (var ms = new MemoryStream (Encoding.UTF8.GetBytes (xml))) {
-				return FromXml (ms);
-			}
-		}
-
-		public static TimbreFiscalDigital FromXml (Stream xml)
-		{
-			var xs = new XmlSerializer (typeof(TimbreFiscalDigital));
-			object obj = xs.Deserialize (xml);
-			return obj as TimbreFiscalDigital;
 		}
     }
 }

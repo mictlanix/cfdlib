@@ -53,6 +53,8 @@
     <Compile Include="CFDv32\LeyendasFiscales.cs" />
     <Compile Include="CFDv32\LeyendasFiscales.Custom.cs" />
     <Compile Include="CFDLib\CFDException.cs" />
+    <Compile Include="Addendas\AddendaMabe.cs" />
+    <Compile Include="Addendas\AddendaMabe.Custom.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -85,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Addendas\AddendaMabe.xsd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CFDv32\Resources\cadenaoriginal_3_2.xslt" />
@@ -134,5 +137,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CFDv32\Resources\cadenaoriginal_TFD_1_0.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Addendas\" />
   </ItemGroup>
 </Project>

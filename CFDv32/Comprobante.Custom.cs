@@ -33,6 +33,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
 using Mictlanix.CFDv32.Resources;
+using AddendaMabe = Mictlanix.CFDLib.Addendas.Mabe.Factura;
 
 namespace Mictlanix.CFDv32
 {
@@ -55,13 +56,22 @@ namespace Mictlanix.CFDv32
 							if (obj.SchemaLocation != null && !schema_location.Contains (obj.SchemaLocation)) {
 								schema_location += " " + obj.SchemaLocation;
 							}
-							//obj.SchemaLocation = null;
 						} else if (item is LeyendasFiscales) {
 							var obj = (LeyendasFiscales)item;
 							if (!schema_location.Contains (obj.SchemaLocation)) {
 								schema_location += " " + obj.SchemaLocation;
 							}
-							//obj.SchemaLocation = null;
+						}
+					}
+				}
+
+				if (Addenda != null) {
+					foreach (var item in Addenda) {
+						if (item is AddendaMabe) {
+							var obj = (AddendaMabe)item;
+							if (obj.SchemaLocation != null && !schema_location.Contains (obj.SchemaLocation)) {
+								schema_location += " " + obj.SchemaLocation;
+							}
 						}
 					}
 				}
@@ -73,11 +83,11 @@ namespace Mictlanix.CFDv32
 
         [XmlNamespaceDeclarations]
         public XmlSerializerNamespaces Xmlns {
-            get {
-                if (xmlns == null) {
+			get {
+				if (xmlns == null) {
 					xmlns = new List<XmlQualifiedName> ();
 					xmlns.Add (new XmlQualifiedName ("cfdi", "http://www.sat.gob.mx/cfd/3"));
-					xmlns.Add (new XmlQualifiedName("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
+					xmlns.Add (new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
 				}
 
 				if (Complemento != null) {
@@ -90,9 +100,17 @@ namespace Mictlanix.CFDv32
 					}
 				}
 
+				if (Addenda != null) {
+					foreach (var item in Addenda) {
+						if (item is AddendaMabe && !xmlns.Exists (x => x.Name == "mabe")) {
+							xmlns.Add (new XmlQualifiedName ("mabe", "http://recepcionfe.mabempresa.com/cfd/addenda/v1"));
+						}
+					}
+				}
+
 				return new XmlSerializerNamespaces (xmlns.ToArray ());
-            }
-            set {
+			}
+			set {
 				if (value == null) {
 					xmlns = null;
 					return;
@@ -100,15 +118,15 @@ namespace Mictlanix.CFDv32
 
 				xmlns = new List<XmlQualifiedName> (value.ToArray ());
 			}
-        }
+		}
         
         public override string ToString()
-        {
+		{
 			var resolver = new EmbeddedResourceResolver ();
 
-			using (var xml = ToXmlStream()) {
-				using (var output = new StringWriter()) {
-                    using (var xsl_stream = resolver.GetResource ("cadenaoriginal_3_2.xslt")) {
+			using (var xml = ToXmlStream ()) {
+				using (var output = new StringWriter ()) {
+					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_3_2.xslt")) {
 						XslCompiledTransform xslt = new XslCompiledTransform ();
 						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
 						xslt.Transform (XmlReader.Create (xml), null, output);
