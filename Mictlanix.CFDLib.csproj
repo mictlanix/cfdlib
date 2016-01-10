@@ -7,6 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Mictlanix</RootNamespace>
     <AssemblyName>Mictlanix.CFDLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -86,8 +87,8 @@
     <EmbeddedResource Include="CFDv22\Resources\iedu.xslt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Addendas\AddendaMabe.xsd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CFDv32\Resources\cadenaoriginal_3_2.xslt" />
