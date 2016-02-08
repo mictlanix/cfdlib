@@ -1,10 +1,10 @@
 ﻿// 
-// AddendaMabe.Custom.cs
+// LeyendasFiscales.Custom.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.com>
 // 
-// Copyright (C) 2015 Eddy Zavaleta, Mictlanix, and contributors.
+// Copyright (C) 2012-2016 Eddy Zavaleta, Mictlanix, and contributors.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -32,16 +32,18 @@ using System.Xml.Serialization;
 using System.Xml.Xsl;
 using Mictlanix.CFDv32.Resources;
 
-namespace Mictlanix.CFDLib.Addendas.Mabe {
-	public partial class Factura {
+namespace Mictlanix.CFDv32
+{
+	public partial class LeyendasFiscales
+	{
 		string schema_location = string.Empty;
-        XmlSerializerNamespaces xmlns;
+		XmlSerializerNamespaces xmlns;
 		
 		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
 		public string SchemaLocation {
 			get {
-				if (string.IsNullOrWhiteSpace (schema_location)) {
-					schema_location = "http://recepcionfe.mabempresa.com/cfd/addenda/v1 http://recepcionfe.mabempresa.com/cfd/addenda/v1/mabev1.xsd";
+				if (schema_location == string.Empty) {
+					schema_location = "http://www.sat.gob.mx/leyendasFiscales http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xsd";
 				}
 				
 				return schema_location;
@@ -54,7 +56,7 @@ namespace Mictlanix.CFDLib.Addendas.Mabe {
 			get {
 				if (xmlns == null) {
 					xmlns = new XmlSerializerNamespaces (new XmlQualifiedName[] {
-						new XmlQualifiedName ("mabe", "http://recepcionfe.mabempresa.com/cfd/addenda/v1"),
+						new XmlQualifiedName ("leyendasFisc", "http://www.sat.gob.mx/leyendasFiscales"),
 						new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
 					});
 				}
@@ -64,11 +66,11 @@ namespace Mictlanix.CFDLib.Addendas.Mabe {
 			set { xmlns = value; }
 		}
 
-		public override string ToString ()
+        public override string ToString ()
 		{
 			return ToXmlString ();
 		}
-
+        
 		public string ToXmlString ()
 		{
 			using (var ms = ToXmlStream ()) {
@@ -77,8 +79,8 @@ namespace Mictlanix.CFDLib.Addendas.Mabe {
 		}
 
 		public MemoryStream ToXmlStream ()
-		{
-			return CFDLib.Utils.SerializeToXmlStream (this, Xmlns);
+        {
+            return CFDLib.Utils.SerializeToXmlStream(this, Xmlns);
 		}
     }
 }

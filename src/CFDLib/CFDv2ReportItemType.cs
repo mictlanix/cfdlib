@@ -1,10 +1,10 @@
 ﻿// 
-// EmbeddedResourceResolver.cs
+// CFDv2ReportItemType.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.com>
 // 
-// Copyright (C) 2012-2013 Eddy Zavaleta, Mictlanix, and contributors.
+// Copyright (C) 2011-2016 Eddy Zavaleta, Mictlanix, and contributors.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -24,29 +24,14 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-
 using System;
-using System.Reflection;
-using System.IO;
-using System.Xml;
 
-namespace Mictlanix.CFDv22.Resources
+namespace Mictlanix.CFDLib
 {
-    internal class EmbeddedResourceResolver : XmlUrlResolver
+    public enum CFDv2ReportItemType : int
     {
-        public override object GetEntity (Uri absoluteUri, string role, Type ofObjectToReturn)
-		{
-			Type type = typeof(EmbeddedResourceResolver);
-			
-			return type.Assembly.GetManifestResourceStream (type, Path.GetFileName(absoluteUri.AbsolutePath));
-        }
-
-        public Stream GetResource (string name)
-		{
-			Type type = typeof(EmbeddedResourceResolver);
-			
-			return type.Assembly.GetManifestResourceStream (type, name);
-		}
+        Income,
+        Outcome,
+		Transfer
     }
 }

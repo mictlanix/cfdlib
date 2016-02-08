@@ -1,10 +1,10 @@
 ﻿// 
-// Comprobante.cs
+// TimbreFiscalDigital.Custom.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.com>
 // 
-// Copyright (C) 2012-2013 Eddy Zavaleta, Mictlanix, and contributors.
+// Copyright (C) 2012-2016 Eddy Zavaleta, Mictlanix, and contributors.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -30,42 +30,49 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
-using Mictlanix.CFDv20.Resources;
+using Mictlanix.CFDv32.Resources;
 
-namespace Mictlanix.CFDv20
+namespace Mictlanix.CFDv32
 {
-    public partial class Comprobante
+    public partial class TimbreFiscalDigital
     {
-        [XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string schemaLocation = "http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd";
-		
+		string schema_location = string.Empty;
         XmlSerializerNamespaces xmlns;
+		
+		[XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+		public string SchemaLocation {
+			get {
+				if (schema_location == string.Empty) {
+					schema_location = "http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/TimbreFiscalDigital/TimbreFiscalDigital.xsd";
+				}
+				
+				return schema_location;
+			}
+			set { schema_location = value; }
+		}
 
         [XmlNamespaceDeclarations]
-        public XmlSerializerNamespaces Xmlns
-        {
-            get
-            {
-                if (xmlns == null)
-                {
-                    xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
-                        new XmlQualifiedName("", "http://www.sat.gob.mx/cfd/2"),
-                        new XmlQualifiedName("xsi", "http://www.w3.org/2001/XMLSchema-instance")
-                    });
-                }
+        public XmlSerializerNamespaces Xmlns {
+			get {
+				if (xmlns == null) {
+					xmlns = new XmlSerializerNamespaces (new XmlQualifiedName[] {
+						new XmlQualifiedName ("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"),
+						new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
+					});
+				}
 
-                return xmlns;
-            }
-            set { xmlns = value; }
-        }
-        
+				return xmlns;
+			}
+			set { xmlns = value; }
+		}
+
         public override string ToString()
-        {
+		{
 			var resolver = new EmbeddedResourceResolver ();
 
-			using (var xml = ToXmlStream()) {
-				using (var output = new StringWriter()) {
-					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_2_0.xslt")) {
+			using (var xml = ToXmlStream ()) {
+				using (var output = new StringWriter ()) {
+					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_TFD_1_0.xslt")) {
 						XslCompiledTransform xslt = new XslCompiledTransform ();
 						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
 						xslt.Transform (XmlReader.Create (xml), null, output);
@@ -74,28 +81,31 @@ namespace Mictlanix.CFDv20
 				}
 			}
 		}
-
+        
 		public string ToXmlString()
-        {
-			using (var ms = ToXmlStream()) {
+		{
+			using (var ms = ToXmlStream ()) {
 				return Encoding.UTF8.GetString (ms.ToArray ());
 			}
 		}
 
 		public MemoryStream ToXmlStream()
-        {
-            var xmlns = new XmlSerializerNamespaces(new XmlQualifiedName[] {
-                new XmlQualifiedName ("", "http://www.sat.gob.mx/cfd/2"),
-                new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
-            });
-
-            return CFDLib.Utils.SerializeToXmlStream(this, xmlns);
+		{
+			return CFDLib.Utils.SerializeToXmlStream (this, Xmlns);
 		}
 
-		public void Sign (byte[] privateKey, byte[] password)
+		public static TimbreFiscalDigital FromXml (string xml)
 		{
-			string data = ToString ();
-			sello = CFDLib.Utils.SHA1WithRSA (data, privateKey, password);
+			using (var ms = new MemoryStream (Encoding.UTF8.GetBytes (xml))) {
+				return FromXml (ms);
+			}
+		}
+
+		public static TimbreFiscalDigital FromXml (Stream xml)
+		{
+			var xs = new XmlSerializer (typeof(TimbreFiscalDigital));
+			object obj = xs.Deserialize (xml);
+			return obj as TimbreFiscalDigital;
 		}
     }
 }

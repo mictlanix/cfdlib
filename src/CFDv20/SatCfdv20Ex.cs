@@ -4,7 +4,7 @@
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.com>
 // 
-// Copyright (C) 2012-2013 Eddy Zavaleta, Mictlanix, and contributors.
+// Copyright (C) 2012-2016 Eddy Zavaleta, Mictlanix, and contributors.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -24,24 +24,21 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
 using System;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
-using Mictlanix.CFDv22.Resources;
+using Mictlanix.CFDv20.Resources;
 
-namespace Mictlanix.CFDv22
+namespace Mictlanix.CFDv20
 {
     public partial class Comprobante
     {
-		public static readonly DateTime RELEASE_DATE = new DateTime (2012, 7, 1, 0, 0, 0);
-
         [XmlAttributeAttribute("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string schemaLocation = "http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv22.xsd";
-
+        public string schemaLocation = "http://www.sat.gob.mx/cfd/2 http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd";
+		
         XmlSerializerNamespaces xmlns;
 
         [XmlNamespaceDeclarations]
@@ -68,7 +65,7 @@ namespace Mictlanix.CFDv22
 
 			using (var xml = ToXmlStream()) {
 				using (var output = new StringWriter()) {
-					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_2_2.xslt")) {
+					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_2_0.xslt")) {
 						XslCompiledTransform xslt = new XslCompiledTransform ();
 						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
 						xslt.Transform (XmlReader.Create (xml), null, output);
@@ -77,7 +74,7 @@ namespace Mictlanix.CFDv22
 				}
 			}
 		}
-		
+
 		public string ToXmlString()
         {
 			using (var ms = ToXmlStream()) {
