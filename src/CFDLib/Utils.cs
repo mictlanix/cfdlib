@@ -68,6 +68,23 @@ namespace Mictlanix.CFDLib
 			return Convert.ToBase64String (signature);
 		}
 
+		public static string SHA256WithRSA (string message, byte[] data, byte[] password)
+		{
+			ISigner signer;
+			byte[] signature;
+			AsymmetricKeyParameter key;
+
+			key = PrivateKeyFactory.DecryptKey (Encoding.UTF8.GetString (password).ToCharArray (), data);
+			signer = SignerUtilities.GetSigner ("SHA256withRSA");
+			signer.Init (true, key);
+
+			data = Encoding.UTF8.GetBytes (message);
+			signer.BlockUpdate (data, 0, data.Length);
+			signature = signer.GenerateSignature ();
+
+			return Convert.ToBase64String (signature);
+		}
+
 		public static bool PrivateKeyTest (byte[] data, byte[] password)
 		{
 			try {

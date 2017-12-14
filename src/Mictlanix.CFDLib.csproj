@@ -33,7 +33,8 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\..\profact-client\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +59,12 @@
     <Compile Include="CFDLib\CFDException.cs" />
     <Compile Include="Addendas\AddendaMabe.cs" />
     <Compile Include="Addendas\AddendaMabe.Custom.cs" />
+    <Compile Include="CFDv33\Comprobante.Custom.cs" />
+    <Compile Include="CFDv33\Comprobante.cs" />
+    <Compile Include="CFDv33\TimbreFiscalDigital.Custom.cs" />
+    <Compile Include="CFDv33\TimbreFiscalDigital.cs" />
+    <Compile Include="CFDv33\Comprobante.catCFDI.cs" />
+    <Compile Include="CFDv33\Resources\EmbeddedResourceResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -87,6 +94,35 @@
     <EmbeddedResource Include="CFDv22\Resources\pfic.xslt" />
     <EmbeddedResource Include="CFDv22\Resources\psgcfdsp.xslt" />
     <EmbeddedResource Include="CFDv22\Resources\iedu.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\cadenaoriginal_3_3.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\cadenaoriginal_TFD_1_1.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\aerolineas.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\certificadodedestruccion.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\cfdiregistrofiscal.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\ComercioExterior11.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\consumodecombustibles.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\detallista.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\divisas.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\donat11.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\ecc11.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\iedu.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\implocal.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\ine11.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\leyendasFisc.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\nomina12.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\notariospublicos.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\obrasarteantiguedades.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\pagoenespecie.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\Pagos10.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\pfic.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\renovacionysustitucionvehiculos.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\servicioparcialconstruccion.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\terceros11.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\TuristaPasajeroExtranjero.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\utilerias.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\valesdedespensa.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\vehiculousado.xslt" />
+    <EmbeddedResource Include="CFDv33\Resources\ventavehiculos11.xslt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Addendas\AddendaMabe.xsd" />
