@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Mictlanix.CFDLib</id>
-    <version>0.1.0</version>
+    <version>3.3.0-beta4</version>
     <title>Mictlanix CFDI Library</title>
     <authors>Eddy Zavaleta, Mictlanix, and contributors</authors>
     <owners/>
@@ -10,14 +10,14 @@
     <projectUrl>https://github.com/mictlanix/cfdlib</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Mexican Digital Invoicing (CFDI) Library</description>
-    <releaseNotes>First public release.</releaseNotes>
-    <copyright>Copyright 2016</copyright>
+    <releaseNotes>CFDI v3.2 &amp; Nomina v1.2 support.</releaseNotes>
+    <copyright>Copyright © 2018 Mictlanix SAS de CV</copyright>
     <tags>cfdi invoice factura xml</tags>
     <dependencies>
-      <dependency id="BouncyCastle" version="1.7.0" />
+      <dependency id="BouncyCastle" version="1.8.1" />
     </dependencies>
   </metadata>
   <files>
-	<file src="src/bin/Release/Mictlanix.CFDLib.dll" target="lib\net45" />
+	<file src="src/bin/Release/Mictlanix.CFDLib.dll" target="lib/net45" />
   </files>
 </package>
