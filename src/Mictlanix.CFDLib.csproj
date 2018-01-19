@@ -65,6 +65,9 @@
     <Compile Include="CFDv33\TimbreFiscalDigital.cs" />
     <Compile Include="CFDv33\Comprobante.catCFDI.cs" />
     <Compile Include="CFDv33\Resources\EmbeddedResourceResolver.cs" />
+    <Compile Include="CFDv33\Nomina.cs" />
+    <Compile Include="CFDv33\Nomina.Custom.cs" />
+    <Compile Include="CFDv33\Nomina.Cat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

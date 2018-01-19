@@ -1,5 +1,5 @@
 ﻿// 
-// Comprobante.Custom.cs
+// TimbreFiscalDigital.Custom.cs
 // 
 // Author:
 //   Eddy Zavaleta <eddy@mictlanix.com>
@@ -24,9 +24,7 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -35,31 +33,15 @@ using System.Xml.Xsl;
 using Mictlanix.CFDv33.Resources;
 
 namespace Mictlanix.CFDv33 {
-	public partial class Comprobante {
-		string schema_location;
-		List<XmlQualifiedName> xmlns;
+	public partial class Nomina {
+		string schema_location = string.Empty;
+		XmlSerializerNamespaces xmlns;
 
 		[XmlAttributeAttribute ("schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
 		public string SchemaLocation {
 			get {
-				if (schema_location == null) {
-					schema_location = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
-				}
-
-				if (Complemento != null) {
-					foreach (var item in Complemento) {
-						if (item is TimbreFiscalDigital) {
-							var obj = (TimbreFiscalDigital) item;
-							if (obj.SchemaLocation != null && !schema_location.Contains (obj.SchemaLocation)) {
-								schema_location += " " + obj.SchemaLocation;
-							}
-						} else if (item is Nomina) {
-							var obj = (Nomina) item;
-							if (obj.SchemaLocation != null && !schema_location.Contains (obj.SchemaLocation)) {
-								schema_location += " " + obj.SchemaLocation;
-							}
-						}
-					}
+				if (schema_location == string.Empty) {
+					schema_location = "http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
 				}
 
 				return schema_location;
@@ -71,31 +53,15 @@ namespace Mictlanix.CFDv33 {
 		public XmlSerializerNamespaces Xmlns {
 			get {
 				if (xmlns == null) {
-					xmlns = new List<XmlQualifiedName> ();
-					xmlns.Add (new XmlQualifiedName ("cfdi", "http://www.sat.gob.mx/cfd/3"));
-					xmlns.Add (new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
+					xmlns = new XmlSerializerNamespaces (new XmlQualifiedName[] {
+						new XmlQualifiedName ("nomina12", "http://www.sat.gob.mx/nomina12"),
+						new XmlQualifiedName ("xsi", "http://www.w3.org/2001/XMLSchema-instance")
+					});
 				}
 
-				if (Complemento != null) {
-					foreach (var item in Complemento) {
-						if (item is TimbreFiscalDigital && !xmlns.Exists (x => x.Name == "tfd")) {
-							xmlns.Add (new XmlQualifiedName ("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital"));
-						} else if (item is Nomina && !xmlns.Exists (x => x.Name == "tfd")) {
-							xmlns.Add (new XmlQualifiedName ("nomina12", "http://www.sat.gob.mx/nomina12"));
-						}
-					}
-				}
-
-				return new XmlSerializerNamespaces (xmlns.ToArray ());
+				return xmlns;
 			}
-			set {
-				if (value == null) {
-					xmlns = null;
-					return;
-				}
-
-				xmlns = new List<XmlQualifiedName> (value.ToArray ());
-			}
+			set { xmlns = value; }
 		}
 
 		public override string ToString ()
@@ -104,25 +70,13 @@ namespace Mictlanix.CFDv33 {
 
 			using (var xml = ToXmlStream ()) {
 				using (var output = new StringWriter ()) {
-					using (var xsl_stream = resolver.GetResource ("cadenaoriginal_3_3.xslt")) {
+					using (var xsl_stream = resolver.GetResource ("nomina12.xslt")) {
 						XslCompiledTransform xslt = new XslCompiledTransform ();
 						xslt.Load (XmlReader.Create (xsl_stream), XsltSettings.TrustedXslt, resolver);
 						xslt.Transform (XmlReader.Create (xml), null, output);
 						return output.ToString ();
 					}
 				}
-			}
-		}
-
-		public MemoryStream ToXmlStream ()
-		{
-			return CFDLib.Utils.SerializeToXmlStream (this, Xmlns);
-		}
-
-		public byte[] ToXmlBytes ()
-		{
-			using (var ms = ToXmlStream ()) {
-				return ms.ToArray ();
 			}
 		}
 
@@ -133,23 +87,23 @@ namespace Mictlanix.CFDv33 {
 			}
 		}
 
-		public void Sign (byte[] privateKey, byte[] password)
+		public MemoryStream ToXmlStream ()
 		{
-			Sello = CFDLib.Utils.SHA256WithRSA (ToString (), privateKey, password);
+			return CFDLib.Utils.SerializeToXmlStream (this, Xmlns);
 		}
 
-		public static Comprobante FromXml (string xml)
+		public static Nomina FromXml (string xml)
 		{
 			using (var ms = new MemoryStream (Encoding.UTF8.GetBytes (xml))) {
 				return FromXml (ms);
 			}
 		}
 
-		public static Comprobante FromXml (Stream xml)
+		public static Nomina FromXml (Stream xml)
 		{
-			var xs = new XmlSerializer (typeof (Comprobante));
+			var xs = new XmlSerializer (typeof (Nomina));
 			object obj = xs.Deserialize (xml);
-			return obj as Comprobante;
+			return obj as Nomina;
 		}
 	}
 }
