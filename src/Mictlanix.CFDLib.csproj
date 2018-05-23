@@ -33,7 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\profact-client\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\..\profact-client\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -68,6 +68,8 @@
     <Compile Include="CFDv33\Nomina.cs" />
     <Compile Include="CFDv33\Nomina.Custom.cs" />
     <Compile Include="CFDv33\Nomina.Cat.cs" />
+    <Compile Include="CFDv33\ComercioExterior.cs" />
+    <Compile Include="CFDv33\ComercioExterior.Cat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
