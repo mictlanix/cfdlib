@@ -139,10 +139,11 @@ namespace Mictlanix.CFDv33 {
         }
         
         /// <remarks/>
-	[XmlArray ("Complemento")]
-	[XmlArrayItem (typeof (TimbreFiscalDigital), Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital")]
-	[XmlArrayItem (typeof (Nomina), Namespace = "http://www.sat.gob.mx/nomina12")]
-        public List<object> Complemento {
+		[XmlArray ("Complemento")]
+		[XmlArrayItem (typeof (TimbreFiscalDigital), Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital")]
+		[XmlArrayItem (typeof (Nomina), Namespace = "http://www.sat.gob.mx/nomina12")]
+		[XmlArrayItem (typeof (Pagos), Namespace = "http://www.sat.gob.mx/Pagos")]
+		public List<object> Complemento {
             get {
                 return this.complementoField;
             }
@@ -151,8 +152,8 @@ namespace Mictlanix.CFDv33 {
             }
         }
         
-	/// <remarks/>
-	[XmlArray ("Addenda")]
+		/// <remarks/>
+		[XmlArray ("Addenda")]
         public List<object> Addenda {
             get {
                 return this.addendaField;
