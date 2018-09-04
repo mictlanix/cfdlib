@@ -26,4 +26,4 @@ using System.Runtime.InteropServices;
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 [assembly: AssemblyVersion ("3.2.99")]
 [assembly: AssemblyFileVersion ("3.2.99")]
-[assembly: AssemblyInformationalVersion ("3.3.0-beta4")]
+[assembly: AssemblyInformationalVersion ("3.3.0-beta6")]
