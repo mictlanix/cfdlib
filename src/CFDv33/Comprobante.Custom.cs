@@ -60,6 +60,10 @@ namespace Mictlanix.CFDv33 {
 							if (pagos.SchemaLocation != null && !schema_location.Contains (pagos.SchemaLocation)) {
 								schema_location += " " + pagos.SchemaLocation;
 							}
+						} else if (item is ImpuestosLocales implocal) {
+							if (implocal.SchemaLocation != null && !schema_location.Contains (implocal.SchemaLocation)) {
+								schema_location += " " + implocal.SchemaLocation;
+							}
 						}
 					}
 				}
@@ -87,6 +91,8 @@ namespace Mictlanix.CFDv33 {
 							xmlns.Add (new XmlQualifiedName ("nomina12", "http://www.sat.gob.mx/nomina12"));
 						} else if (item is Pagos && !xmlns.Exists (x => x.Name == "pago10")) {
 							xmlns.Add (new XmlQualifiedName ("pago10", "http://www.sat.gob.mx/nomina12"));
+						} else if (item is ImpuestosLocales && !xmlns.Exists (x => x.Name == "implocal")) {
+							xmlns.Add (new XmlQualifiedName ("implocal", "http://www.sat.gob.mx/implocal"));
 						}
 					}
 				}

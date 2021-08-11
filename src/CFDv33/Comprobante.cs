@@ -143,7 +143,8 @@ namespace Mictlanix.CFDv33 {
 		[XmlArrayItem (typeof (TimbreFiscalDigital), Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital")]
 		[XmlArrayItem (typeof (Nomina), Namespace = "http://www.sat.gob.mx/nomina12")]
 		[XmlArrayItem (typeof (Pagos), Namespace = "http://www.sat.gob.mx/Pagos")]
-		public List<object> Complemento {
+        [XmlArrayItem (typeof (ImpuestosLocales), Namespace = "http://www.sat.gob.mx/implocal")]
+        public List<object> Complemento {
             get {
                 return this.complementoField;
             }
