@@ -43,6 +43,20 @@
     <Compile Include="CFDv32\Comprobante.Custom.cs" />
     <Compile Include="CFDv32\Comprobante.cs" />
     <Compile Include="CFDv32\TimbreFiscalDigital.cs" />
+    <Compile Include="CFDv40\Comprobante.cs" />
+    <Compile Include="CFDv40\Comprobante.catCFDI.cs" />
+    <Compile Include="CFDv40\Comprobante.Custom.cs" />
+    <Compile Include="CFDv40\ImpuestosLocales.cs" />
+    <Compile Include="CFDv40\ImpuestosLocales.Custom.cs" />
+    <Compile Include="CFDv40\Nomina.Cat.cs" />
+    <Compile Include="CFDv40\Nomina.cs" />
+    <Compile Include="CFDv40\Nomina.Custom.cs" />
+    <Compile Include="CFDv40\Pagos.Cat.cs" />
+    <Compile Include="CFDv40\Pagos.cs" />
+    <Compile Include="CFDv40\Pagos.Custom.cs" />
+    <Compile Include="CFDv40\Resources\EmbeddedResourceResolver.cs" />
+    <Compile Include="CFDv40\TimbreFiscalDigital.cs" />
+    <Compile Include="CFDv40\TimbreFiscalDigital.Custom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CFDv22\SatCfdv22.cs" />
     <Compile Include="CFDv22\SatCfdv22Ex.cs" />
@@ -190,6 +204,101 @@
     <EmbeddedResource Include="CFDv32\Resources\cadenaoriginal_TFD_1_0.xslt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Addendas\" />
+    <EmbeddedResource Include="CFDv40\Resources\aerolineas.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\certificadodedestruccion.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\cfdiregistrofiscal.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\ComercioExterior11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\consumodecombustibles.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\detallista.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\divisas.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\donat11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\ecc11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\iedu.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\implocal.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\ine11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\leyendasFisc.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\nomina12.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\notariospublicos.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\obrasarteantiguedades.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\pagoenespecie.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\Pagos10.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\pfic.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\renovacionysustitucionvehiculos.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\servicioparcialconstruccion.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\terceros11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\TuristaPasajeroExtranjero.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\utilerias.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\valesdedespensa.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\vehiculousado.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\ventavehiculos11.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\cadena_original_4_0.xslt" />
+    <EmbeddedResource Include="CFDv40\Resources\CartaPorte.xslt" />
+    <EmbeddedResource Include="CFDv40\Resources\CartaPorte20.xslt" />
+    <EmbeddedResource Include="CFDv40\Resources\ecc12.xslt" />
+    <EmbeddedResource Include="CFDv40\Resources\pagos20.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\consumodeCombustibles11.xslt" />
+    <EmbeddedResource Include="CFDv40\Resources\GastosHidrocarburos10.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\cadenaoriginal_4_0.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CFDv40\Resources\cadenaoriginal_TFD_1_1.xslt" />
   </ItemGroup>
 </Project>

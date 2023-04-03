@@ -1,4 +1,4 @@
-﻿// 
+// 
 // EmbeddedResourceResolver.cs
 // 
 // Author:
@@ -30,6 +30,7 @@ using System;
 using System.Reflection;
 using System.IO;
 using System.Xml;
+using System.Diagnostics;
 
 namespace Mictlanix.CFDv33.Resources {
 	internal class EmbeddedResourceResolver : XmlUrlResolver {
