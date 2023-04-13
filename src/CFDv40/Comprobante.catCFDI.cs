@@ -293,6 +293,8 @@ namespace Mictlanix.CFDv40 {
 		SueldosYSalariosEIngresosAsimiladosASalarios = 605,
 		[XmlEnum ("606")]
 		Arrendamiento = 606,
+		[XmlEnum ("607")]
+		RegimenDeEnajenacionOAdquisicionDeBienes = 607,
 		[XmlEnum ("608")]
 		DemasIngresos = 608,
 		[XmlEnum ("609")]
@@ -305,6 +307,8 @@ namespace Mictlanix.CFDv40 {
 		PersonasFisicasConActividadesEmpresarialesYProfesionales = 612,
 		[XmlEnum ("614")]
 		IngresosPorIntereses = 614,
+		[XmlEnum ("615")]
+		RegimenDeLosIngresosPorObtencionDePremios = 615,
 		[XmlEnum ("616")]
 		SinObligacionesFiscales = 616,
 		[XmlEnum ("620")]
@@ -317,16 +321,16 @@ namespace Mictlanix.CFDv40 {
 		OpcionalParaGruposDeSociedades = 623,
 		[XmlEnum ("624")]
 		Coordinados = 624,
+		[XmlEnum ("625")]
+		RegimenDeLasActividadesEmpresarialesConIngresosATravesDePlataformasTecnologicas = 625,
+		[XmlEnum ("626")]
+		RegimenSimplificadoDeConfianza = 626,
 		[XmlEnum ("628")]
 		Hidrocarburos = 628,
-		[XmlEnum ("607")]
-		RegimenDeEnajenacionOAdquisicionDeBienes = 607,
 		[XmlEnum ("629")]
 		DelosRegimenesFiscalesPreferentesYDeLasEmpresasMultinacionales = 629,
 		[XmlEnum ("630")]
-		EnajenacionDeAccionesEnBolsaDeValores = 630,
-		[XmlEnum ("615")]
-		RegimenDeLosIngresosPorObtencionDePremios = 615
+		EnajenacionDeAccionesEnBolsaDeValores = 630
 	}
 
 	[Serializable]
