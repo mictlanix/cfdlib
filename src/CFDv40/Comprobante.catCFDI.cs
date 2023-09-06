@@ -379,7 +379,7 @@ namespace Mictlanix.CFDv40 {
 		[XmlEnum ("D10")]
 		PagosPorServiciosEducativos = 210,
 		[XmlEnum ("S01")]
-		SinObligacionesFiscales= 501,
+		SinEfectosFiscales = 501,
 		[XmlEnum ("CP01")]
 		Pagos = 502,
 		[XmlEnum ("CN01")]
