@@ -32,20 +32,23 @@ using System.IO;
 using System.Xml;
 using System.Diagnostics;
 
-namespace Mictlanix.CFDv33.Resources {
+namespace Mictlanix.CFDv40.Resources {
 	internal class EmbeddedResourceResolver : XmlUrlResolver {
 		public override object GetEntity (Uri absoluteUri, string role, Type ofObjectToReturn)
 		{
-			Type type = typeof (EmbeddedResourceResolver);
+			
+				Type type = typeof (EmbeddedResourceResolver);
 
-			return type.Assembly.GetManifestResourceStream (type, Path.GetFileName (absoluteUri.AbsolutePath));
+				return type.Assembly.GetManifestResourceStream (type, Path.GetFileName (absoluteUri.AbsolutePath));
+			
+			
 		}
 
 		public Stream GetResource (string name)
 		{
 			Type type = typeof (EmbeddedResourceResolver);
 
-			return type.Assembly.GetManifestResourceStream (type, name);
+			return type.Assembly.GetManifestResourceStream (type, name);			
 		}
 	}
 }
